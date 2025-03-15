@@ -77,7 +77,9 @@ housing = pd.read_csv(file_1)
 # attribute combinations
 
 housing["rooms_per_house"] = housing["total_rooms"] / housing["households"]
+
 housing["bedrooms_ratio"] = housing["total_bedrooms"] / housing["total_rooms"]
+
 housing["people_per_house"] = housing["population"] / housing["households"]
 
 # corr_matrix2 = housing.select_dtypes(include=[np.number]).corr()
@@ -91,8 +93,11 @@ housing["people_per_house"] = housing["population"] / housing["households"]
 
 from sklearn.impute import SimpleImputer
 imputer = SimpleImputer(strategy="median") # creating an instance
+
 housing_num = housing.select_dtypes(include=[np.number]) # selecting only number attributes
+
 imputer.fit(housing_num) # training the instance
+
 X = imputer.transform(housing_num) # replacing values
 
 housing_tr = pd.DataFrame(X, columns=housing_num.columns, index=housing_num.index) # changing numpy arrays to pandas dataframes
